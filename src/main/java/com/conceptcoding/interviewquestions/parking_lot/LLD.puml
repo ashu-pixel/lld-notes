@@ -1,0 +1,153 @@
+@startuml Parking Lot System
+
+class ParkingLot {
+    - ParkingBuilding building
+    - EntranceGate entranceGate
+    - ExitGate exitGate
+    + vehicleArrives(Vehicle): Ticket
+    + vehicleExits(Ticket, Payment)
+}
+
+class ParkingBuilding {
+    - List<ParkingLevel> levels
+    - CostComputation costComputation
+    + allocate(Vehicle): Ticket
+    + release(Ticket)
+}
+
+class ParkingLevel {
+    - int levelNumber
+    - Map<VehicleType, ParkingSpotManager> managers
+    + hasAvailability(VehicleType): boolean
+    + park(VehicleType): ParkingSpot
+    + unPark(VehicleType, ParkingSpot)
+    + getLevelNumber(): int
+}
+
+class EntranceGate {
+    + enter(ParkingBuilding, Vehicle): Ticket
+}
+
+class ExitGate {
+    - CostComputation costComputation
+    + completeExit(ParkingBuilding, Ticket, Payment)
+}
+
+class Vehicle {
+    - String vehicleNumber
+    - VehicleType vehicleType
+    + getVehicleNumber(): String
+    + getVehicleType(): VehicleType
+}
+
+class ParkingSpot {
+    - String spotId
+    - boolean isFree
+    + isSpotFree(): boolean
+    + occupySpot()
+    + releaseSpot()
+    + getSpotId(): String
+}
+
+enum VehicleType {
+    TWO_WHEELER
+    FOUR_WHEELER
+}
+
+class Ticket {
+    - Vehicle vehicle
+    - ParkingLevel level
+    - ParkingSpot spot
+    - LocalDateTime entryTime
+    + getVehicle(): Vehicle
+    + getLevel(): ParkingLevel
+    + getSpot(): ParkingSpot
+    + getEntryTime(): LocalDateTime
+}
+
+abstract class ParkingSpotManager {
+    # List<ParkingSpot> spots
+    # ParkingSpotLookupStrategy strategy
+    - ReentrantLock lock
+    + park(): ParkingSpot
+    + unPark(ParkingSpot)
+    + hasFreeSpot(): boolean
+}
+
+class TwoWheelerSpotManager extends ParkingSpotManager {
+}
+
+class FourWheelerSpotManager extends ParkingSpotManager {
+}
+
+interface ParkingSpotLookupStrategy {
+    + selectSpot(List<ParkingSpot>): ParkingSpot
+}
+
+class RandomLookupStrategy implements ParkingSpotLookupStrategy {
+    + selectSpot(List<ParkingSpot>): ParkingSpot
+}
+
+class CostComputation {
+    - PricingStrategy pricingStrategy
+    + compute(Ticket): double
+}
+
+interface PricingStrategy {
+    + calculate(Ticket): double
+}
+
+class FixedPricingStrategy implements PricingStrategy {
+    + calculate(Ticket): double
+}
+
+interface Payment {
+    + pay(double): boolean
+}
+
+class CashPayment implements Payment {
+    + pay(double): boolean
+}
+
+class UPIPayment implements Payment {
+    + pay(double): boolean
+}
+
+class ParkingLotClient {
+    + main(String[])
+}
+
+' Relationships
+ParkingLot --> ParkingBuilding : building
+ParkingLot --> EntranceGate : entranceGate
+ParkingLot --> ExitGate : exitGate
+
+ParkingBuilding --> "*" ParkingLevel : levels
+ParkingBuilding --> CostComputation : costComputation
+
+ParkingLevel --> "*" ParkingSpotManager : managers
+
+ParkingSpotManager --> "*" ParkingSpot : spots
+ParkingSpotManager --> ParkingSpotLookupStrategy : strategy
+
+TwoWheelerSpotManager --|> ParkingSpotManager
+FourWheelerSpotManager --|> ParkingSpotManager
+
+RandomLookupStrategy ..|> ParkingSpotLookupStrategy
+
+ExitGate --> CostComputation : costComputation
+
+CostComputation --> PricingStrategy : pricingStrategy
+
+FixedPricingStrategy ..|> PricingStrategy
+
+CashPayment ..|> Payment
+UPIPayment ..|> Payment
+
+Ticket --> Vehicle : vehicle
+Ticket --> ParkingLevel : level
+Ticket --> ParkingSpot : spot
+
+Vehicle --> VehicleType : vehicleType
+
+@enduml
