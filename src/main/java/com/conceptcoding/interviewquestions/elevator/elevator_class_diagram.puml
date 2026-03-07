@@ -1,0 +1,127 @@
+ @startuml Elevator System Class Diagram
+
+package com.conceptcoding.interviewquestions.elevator {
+    class Building {
+        -List<Floor> floors
+        +Building(int totalFloors, ExternalDispatcher dispatcher)
+        +Floor getFloor(int floor)
+    }
+
+    class Floor {
+        -int floorNumber
+        -ExternalButton upButton
+        -ExternalButton downButton
+        +Floor(int floorNumber, ExternalDispatcher dispatcher)
+        +void pressUpButton()
+        +void pressDownButton()
+    }
+
+    class ExternalButton {
+        -ExternalDispatcher dispatcher
+        +ExternalButton(ExternalDispatcher dispatcher)
+        +void pressButton(int floor, ElevatorDirection direction)
+    }
+
+    class ExternalDispatcher {
+        -ElevatorScheduler scheduler
+        +ExternalDispatcher(ElevatorScheduler scheduler)
+        +void submitExternalRequest(int floor, ElevatorDirection direction)
+    }
+
+    class ElevatorScheduler {
+        -List<ElevatorController> controllers
+        -ElevatorSelectionStrategy strategy
+        +ElevatorScheduler(List<ElevatorController> controllers, ElevatorSelectionStrategy strategy)
+        +void setStrategy(ElevatorSelectionStrategy strategy)
+        +ElevatorController assignElevator(int floor, ElevatorDirection direction)
+    }
+
+    interface ElevatorSelectionStrategy {
+        +ElevatorController selectElevator(List<ElevatorController> controllers, int requestFloor, ElevatorDirection direction)
+    }
+
+    class LeastBusyStrategy {
+        +ElevatorController selectElevator(List<ElevatorController> controllers, int requestFloor, ElevatorDirection direction)
+    }
+
+    class NearestElevatorStrategy {
+        +ElevatorController selectElevator(List<ElevatorController> controllers, int requestFloor, ElevatorDirection direction)
+    }
+
+    class ElevatorController {
+        -PriorityBlockingQueue<Integer> upMinPQ
+        -PriorityBlockingQueue<Integer> downMaxPQ
+        -ElevatorCar elevatorCar
+        +ElevatorController(ElevatorCar elevatorCar)
+        +void submitRequest(int destinationFloor)
+        +void controlElevator()
+    }
+
+    class ElevatorCar {
+        -int id
+        -int currentFloor
+        -int nextFloorStoppage
+        -ElevatorDirection movingDirection
+        -Door door
+        +ElevatorCar(int id)
+        +void showDisplay()
+        +void moveElevator(int destinationFloor)
+        +void setCurrentFloor(int currentFloor)
+    }
+
+    class Door {
+        -DoorState doorState
+        +Door()
+        +void openDoor(int id)
+        +void closeDoor(int id)
+    }
+
+    class InternalButton {
+        -ElevatorController controller
+        +InternalButton(ElevatorController controller)
+        +void pressButton(int destinationFloor)
+    }
+
+    class InternalDispatcher {
+        -static InternalDispatcher INSTANCE
+        -InternalDispatcher()
+        +static InternalDispatcher getInstance()
+        +void submitInternalRequest(int destinationFloor, ElevatorController controller)
+    }
+
+    enum ElevatorDirection {
+        UP
+        DOWN
+        IDLE
+    }
+
+    enum DoorState {
+        DOOR_OPEN
+        DOOR_CLOSED
+    }
+}
+
+' Relationships
+Building --> Floor : contains *
+Floor --> ExternalButton : has upButton
+Floor --> ExternalButton : has downButton
+ExternalButton --> ExternalDispatcher : uses
+ExternalDispatcher --> ElevatorScheduler : uses
+ElevatorScheduler --> ElevatorSelectionStrategy : uses
+ElevatorScheduler --> ElevatorController : manages *
+ElevatorController --> ElevatorCar : controls
+ElevatorCar --> Door : has
+ElevatorCar --> ElevatorDirection : uses
+Door --> DoorState : uses
+InternalButton --> ElevatorController : uses
+InternalButton --> InternalDispatcher : uses
+InternalDispatcher --> ElevatorController : submits to
+LeastBusyStrategy ..|> ElevatorSelectionStrategy : implements
+NearestElevatorStrategy ..|> ElevatorSelectionStrategy : implements
+
+
+note left of InternalDispatcher
+    This can be ignored as well so internal buttton directly submits to ElevatorController
+end note
+
+@enduml
