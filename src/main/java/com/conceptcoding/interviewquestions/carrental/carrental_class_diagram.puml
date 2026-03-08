@@ -1,0 +1,290 @@
+@startuml Car Rental System Class Diagram
+
+package "com.conceptcoding.interviewquestions.carrental" {
+    class VehicleRentalSystem {
+        - List<Store> storeList
+        - List<User> userList
+        + VehicleRentalSystem()
+        + Store getStore(int storeId)
+        + User getUser(int userId)
+        + void addStore(Store store)
+        + void addUser(User user)
+        + void removeStore(int storeId)
+        + void removeUser(int userId)
+    }
+
+    class Store {
+        - int storeId
+        - Location storeLocation
+        - VehicleInventoryManager inventory
+        - ReservationManager reservationManager
+        - BillManager billManager
+        - PaymentManager paymentManager
+        + Store(int storeId, Location location)
+        + List<Vehicle> getVehicles(VehicleType type, LocalDate from, LocalDate to)
+        + Reservation createReservation(int vehicleId, User user, LocalDate from, LocalDate to, ReservationType type)
+        + void cancelReservation(int reservationId)
+        + void startTrip(int reservationId)
+        + void submitVehicle(int reservationId)
+        + Bill generateBill(int reservationId, BillingStrategy billingStrategy)
+        + Payment makePayment(Bill bill, PaymentStrategy paymentStrategy, double paymentAmount)
+        + VehicleInventoryManager getInventory()
+        + int getStoreId()
+    }
+
+    class User {
+        - int userId
+        - String userName
+        - String drivingLicenseNo
+        + User(int userId, String userName, String drivingLicenseNo)
+        + int getUserId()
+        + String getUserName()
+        + String getDrivingLicenseNo()
+        + void setUserId(int userId)
+        + void setUserName(String userName)
+        + void setDrivingLicenseNo(String drivingLicenseNo)
+    }
+
+    class Location {
+        - int buildingNo
+        - String area
+        - String city
+        - String state
+        - String country
+        - int pincode
+        + Location(int buildingNo, String area, String city, String state, String country, int pincode)
+    }
+
+    class Demo {
+        + {static} void main(String[] args)
+    }
+}
+
+package "com.conceptcoding.interviewquestions.carrental.Bill" {
+    class Bill {
+        - int billId
+        - int reservationId
+        - double totalBillAmount
+        - boolean billPaid
+        + Bill(int billId, int reservationId, double totalBillAmount)
+        + int getBillId()
+        + int getReservationId()
+        + double getTotalBillAmount()
+        + boolean isBillPaid()
+        + void setBillPaid(boolean billPaid)
+    }
+
+    interface BillingStrategy {
+        + Bill generateBill(Reservation reservation)
+    }
+
+    class BillManager {
+        - BillingStrategy billingStrategy
+        - Map<Integer, Bill> bills
+        + BillManager(BillingStrategy billingStrategy)
+        + Bill generateBill(Reservation reservation)
+        + Optional<Bill> getBill(int billId)
+        + void setBillingStrategy(BillingStrategy billingStrategy)
+    }
+
+    class DailyBillingStrategy {
+        - VehicleInventoryManager vehicleInventoryManager
+        - AtomicInteger billIdGenerator
+        + DailyBillingStrategy(VehicleInventoryManager vehicleInventoryManager)
+        + Bill generateBill(Reservation reservation)
+    }
+}
+
+package "com.conceptcoding.interviewquestions.carrental.payment" {
+    class Payment {
+        - int paymentId
+        - int billId
+        - double amountPaid
+        - PaymentMode paymentMode
+        - Date paymentDate
+        + Payment(int paymentId, int billId, double amountPaid, PaymentMode paymentMode, Date paymentDate)
+        + int getPaymentId()
+        + int getBillId()
+        + double getAmountPaid()
+        + PaymentMode getPaymentMode()
+        + Date getPaymentDate()
+    }
+
+    enum PaymentMode {
+        CASH
+        ONLINE
+        UPI
+    }
+
+    interface PaymentStrategy {
+        + Payment processPayment(Bill bill, double paymentAmount)
+    }
+
+    class PaymentManager {
+        - PaymentStrategy paymentStrategy
+        - Map<Integer, Payment> payments
+        + PaymentManager(PaymentStrategy paymentStrategy)
+        + Payment makePayment(Bill bill, double paymentAmount)
+        + List<Payment> getPaymentsForBill(int billId)
+        + Optional<Payment> getPayment(int paymentId)
+        + void setPaymentStrategy(PaymentStrategy paymentStrategy)
+    }
+
+    class UPIPaymentStrategy {
+        - AtomicInteger paymentIdGenerator
+        + Payment processPayment(Bill bill, double paymentAmount)
+    }
+}
+
+package "com.conceptcoding.interviewquestions.carrental.product" {
+    class Vehicle {
+        - int vehicleID
+        - String vehicleNumber
+        - VehicleType vehicleType
+        - double dailyRentalCost
+        - VehicleStatus vehicleStatus
+        + Vehicle(int vehicleID, String vehicleNumber, VehicleType vehicleType)
+        + int getVehicleID()
+        + VehicleType getVehicleType()
+        + VehicleStatus getVehicleStatus()
+        + double getDailyRentalCost()
+        + String getVehicleNumber()
+        + void setDailyRentalCost(double dailyRentalCost)
+        + void setStatus(VehicleStatus vehicleStatus)
+    }
+
+    enum VehicleStatus {
+        AVAILABLE
+        BOOKED
+        MAINTENANCE
+    }
+
+    enum VehicleType {
+        FOUR_WHEELER
+        TWO_WHEELER
+    }
+
+    class DateInterval {
+        - LocalDate from
+        - LocalDate to
+        + DateInterval(LocalDate from, LocalDate to)
+        + LocalDate getFrom()
+        + LocalDate getTo()
+        + boolean overlaps(DateInterval other)
+    }
+
+    class VehicleInventoryManager {
+        - ConcurrentMap<Integer, Vehicle> vehicles
+        - ConcurrentMap<Integer, List<Integer>> vehicleBookingIds
+        - ConcurrentMap<Integer, ReentrantLock> vehicleLocks
+        - ReservationRepository reservationRepository
+        + void addVehicle(Vehicle vehicle)
+        + Optional<Vehicle> getVehicle(int vehicleId)
+        + void setReservationRepository(ReservationRepository reservationRepository)
+        + boolean isAvailable(int vehicleId, LocalDate from, LocalDate to)
+        + boolean reserve(int vehicleId, int reservationId, LocalDate from, LocalDate to)
+        + void release(int vehicleId, int reservationId)
+        + List<Vehicle> getAvailableVehicles(VehicleType type, LocalDate from, LocalDate to)
+    }
+}
+
+package "com.conceptcoding.interviewquestions.carrental.reservation" {
+    class Reservation {
+        - int reservationId
+        - int vehicleId
+        - int userId
+        - LocalDate dateBookedFrom
+        - LocalDate dateBookedTo
+        - ReservationType reservationType
+        - ReservationStatus reservationStatus
+        + Reservation(int reservationId, int vehicleId, int userId, LocalDate dateBookedFrom, LocalDate dateBookedTo, ReservationType reservationType)
+        + int getReservationId()
+        + int getVehicleId()
+        + int getUserId()
+        + LocalDate getDateBookedFrom()
+        + LocalDate getDateBookedTo()
+        + ReservationType getReservationType()
+        + ReservationStatus getReservationStatus()
+        + void setReservationStatus(ReservationStatus reservationStatus)
+    }
+
+    enum ReservationStatus {
+        SCHEDULED
+        IN_USE
+        COMPLETED
+        CANCELLED
+    }
+
+    enum ReservationType {
+        HOURLY
+        DAILY
+    }
+
+    class ReservationRepository {
+        - Map<Integer, Reservation> reservations
+        + ReservationRepository()
+        + void save(Reservation reservation)
+        + Optional<Reservation> findById(int reservationId)
+        + void remove(int reservationId)
+        + Map<Integer, Reservation> getAll()
+    }
+
+    class ReservationManager {
+        - VehicleInventoryManager inventory
+        - ReservationRepository reservationRepository
+        - AtomicInteger reservationIdGenerator
+        + ReservationManager(VehicleInventoryManager inventory)
+        + Optional<Reservation> findByID(int reservationId)
+        + Reservation createReservation(int vehicleId, User user, LocalDate from, LocalDate to, ReservationType type)
+        + void cancelReservation(int reservationId)
+        + void startTrip(int reservationId)
+        + void submitVehicle(int reservationId)
+        + void remove(int reservationId)
+    }
+}
+
+' Relationships
+VehicleRentalSystem --> "*" Store : manages
+VehicleRentalSystem --> "*" User : manages
+
+Store --> "1" Location : has
+Store --> "1" VehicleInventoryManager : has
+Store --> "1" ReservationManager : has
+Store --> "1" BillManager : has
+Store --> "1" PaymentManager : has
+
+BillManager --> "1" BillingStrategy : uses
+DailyBillingStrategy ..|> BillingStrategy : implements
+
+PaymentManager --> "1" PaymentStrategy : uses
+UPIPaymentStrategy ..|> PaymentStrategy : implements
+
+VehicleInventoryManager --> "1" ReservationRepository : uses
+
+ReservationManager --> "1" VehicleInventoryManager : uses
+ReservationManager --> "1" ReservationRepository : uses
+
+Reservation --> User : references (userId)
+Reservation --> Vehicle : references (vehicleId)
+
+Bill --> Reservation : references (reservationId)
+
+Payment --> Bill : references (billId)
+
+Vehicle --> VehicleType : has
+Vehicle --> VehicleStatus : has
+
+Reservation --> ReservationType : has
+Reservation --> ReservationStatus : has
+
+Payment --> PaymentMode : has
+
+note left of Store
+    Store acts as orchestrator for all operations related to reservation, billing and payment. 
+    It interacts with inventory manager to check availability and reserve vehicles, 
+    reservation manager to create and manage reservations, 
+    bill manager to generate bills and payment manager to process payments.
+end note
+
+
+@enduml
