@@ -118,16 +118,16 @@ class ParkingLotClient {
 }
 
 ' Relationships
-ParkingLot --> ParkingBuilding : building
-ParkingLot --> EntranceGate : entranceGate
-ParkingLot --> ExitGate : exitGate
+ParkingLot --> ParkingBuilding : has a
+ParkingLot --> "many" EntranceGate : has
+ParkingLot --> "many" ExitGate : has
 
-ParkingBuilding --> "*" ParkingLevel : levels
+ParkingBuilding --> "*" ParkingLevel : has many levels
 ParkingBuilding --> CostComputation : costComputation
 
-ParkingLevel --> "*" ParkingSpotManager : managers
+ParkingLevel --> "*" ParkingSpotManager : has managers
 
-ParkingSpotManager --> "*" ParkingSpot : spots
+ParkingSpotManager --> "*" ParkingSpot : has spots
 ParkingSpotManager --> ParkingSpotLookupStrategy : strategy
 
 TwoWheelerSpotManager --|> ParkingSpotManager
