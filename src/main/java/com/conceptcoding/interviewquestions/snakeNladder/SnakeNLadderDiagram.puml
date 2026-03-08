@@ -1,0 +1,70 @@
+@startuml Snake and Ladder Class Diagram
+package com.conceptcoding.interviewquestions.snakeNladder {
+
+    class SnakeNLadderDemo {
+        + main(args: String[]): void
+    }
+
+    class Game {
+        - board: Board
+        - dice: Dice
+        - playersList: Deque<Player>
+        - winner: Player
+        + Game()
+        + startGame(): void
+        - initializeGame(): void
+        - addPlayers(): void
+        - findPlayerTurn(): Player
+        - jumpCheck(playerNewPosition: int): int
+    }
+
+    class Board {
+        - cells: Cell[][]
+        + Board(boardSize: int, numberOfSnakes: int, numberOfLadders: int)
+        + getCell(playerPosition: int): Cell
+        - initializeCells(boardSize: int): void
+        - addSnakesLadders(cells: Cell[][], numberOfSnakes: int, numberOfLadders: int): void
+    }
+
+    class Cell {
+        - jump: Jump
+    }
+
+    class Jump {
+        - start: int
+        - end: int
+    }
+
+    class Dice {
+        - diceCount: int
+        - min: int
+        - max: int
+        + Dice(diceCount: int)
+        + rollDice(): int
+    }
+
+    class Player {
+        - id: String
+        - currentPosition: int
+        + Player(id: String, currentPosition: int)
+    }
+
+    SnakeNLadderDemo --> Game : creates
+
+    Game *-- Board : composes
+    Game *-- Dice : composes
+    Game *-- "playersList" Player : contains
+    Game --> Player : winner
+
+    Board *-- "cells[][]" Cell : contains
+
+    Cell --> Jump : has (optional)
+
+    note right of Jump
+        Represents both snakes and ladders.
+        For snakes: start > end
+        For ladders: start < end
+    end note
+
+}
+@enduml

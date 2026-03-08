@@ -62,6 +62,9 @@ public class Board {
 
     }
 
+    // Although on FE the board is shown in zig-zag manner, on BE we are storing it
+    // in position = f(row,column) format. So we need to convert the player position to row-column
+    // format to get the cell object.
     Cell getCell(int playerPosition) {
         int boardRow = playerPosition / cells.length;
         int boardColumn = (playerPosition % cells.length);

@@ -30,27 +30,26 @@ public class Game {
 
     public void startGame() {
         while (winner == null) {
-            //check whose turn now
+            // check whose turn now
             Player playerTurn = findPlayerTurn();
             System.out.println("Player turn:" + playerTurn.id + " current position is: " + playerTurn.currentPosition);
 
-            //roll the dice
+            // roll the dice
             int diceNumbers = dice.rollDice();
 
-            //get the new position
+            // get the new position
             int playerNewPosition = playerTurn.currentPosition + diceNumbers;
             playerNewPosition = jumpCheck(playerNewPosition);
             playerTurn.currentPosition = playerNewPosition;
 
             System.out.println("Player turn:" + playerTurn.id + " new Position is: " + playerNewPosition);
-            //check for winning condition
+            // check for winning condition
             if (playerNewPosition >= board.cells.length * board.cells.length - 1) {
                 winner = playerTurn;
             }
         }
         System.out.println("\n===> The Winner is:" + winner.id);
     }
-
 
     private Player findPlayerTurn() {
         Player playerTurns = playersList.removeFirst();
@@ -64,7 +63,7 @@ public class Game {
         }
 
         Cell cell = board.getCell(playerNewPosition);
-        if (cell.jump != null && cell.jump.start == playerNewPosition) {
+        if (cell.jump != null) {
             String jumpBy = (cell.jump.start < cell.jump.end) ? "Ladder" : "Snake";
             System.out.println("[+] Jump done by: " + jumpBy);
             return cell.jump.end;
