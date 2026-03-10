@@ -5,6 +5,7 @@ import com.conceptcoding.interviewquestions.book_my_show.enums.SeatStatus;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Show {
@@ -13,6 +14,7 @@ public class Show {
     private final LocalDate showDate;
     private final LocalTime startTime;
 
+    // This would be thread safe even without ConcurrentHashMap because of : "Phase 2: validate availability"
     private final Map<Integer, SeatStatus> seatStatusMap = new HashMap<>();
     private final Map<Integer, ReentrantLock> seatLocks = new HashMap<>();
 
