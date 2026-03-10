@@ -1,0 +1,155 @@
+@startuml BookMyShow Class Diagram
+
+class BookMyShowApp {
+    + main(args: String[]): void
+    + initialize(): void
+    + userFlow(): void
+}
+
+class TheatreController {
+    - theatreService: TheatreService
+    + addTheatre(theatre: Theatre): void
+    + getMovies(city: City, date: LocalDate): Set<Movie>
+    + getTheatres(city: City, movie: Movie, date: LocalDate): List<Theatre>
+    + getShows(movie: Movie, date: LocalDate, theatre: Theatre): List<Show>
+}
+
+class BookingController {
+    - bookingService: BookingService
+    + createBooking(user: User, show: Show, seats: List<Integer>): Booking
+    + getBooking(bookingId: UUID): Booking
+    + getBookingsForUser(user: User): List<Booking>
+}
+
+class TheatreService {
+    - cityTheatres: Map<City, List<Theatre>>
+    + addTheatre(theatre: Theatre): void
+    + getMovies(city: City, date: LocalDate): Set<Movie>
+    + getTheatres(city: City, movie: Movie, date: LocalDate): List<Theatre>
+    + getShows(movie: Movie, date: LocalDate, theatre: Theatre): List<Show>
+}
+
+class BookingService {
+    - bookings: Map<UUID, Booking>
+    + book(user: User, show: Show, seats: List<Integer>): Booking
+    + getBooking(bookingId: UUID): Booking
+    + getBookingsForUser(user: User): List<Booking>
+}
+
+class Theatre {
+    - name: String
+    - city: City
+    - screens: List<Screen>
+    + getCity(): City
+    + getName(): String
+    + getScreens(): List<Screen>
+}
+
+class Screen {
+    - screenId: int
+    - seats: List<Seat>
+    - showsByDate: Map<LocalDate, List<Show>>
+    + getSeats(): List<Seat>
+    + addShow(show: Show): void
+    + getShows(date: LocalDate): List<Show>
+}
+
+class Seat {
+    - seatId: int
+    - category: SeatCategory
+    + getSeatId(): int
+}
+
+class Show {
+    - movie: Movie
+    - showDate: LocalDate
+    - startTime: LocalTime
+    - seatStatusMap: Map<Integer, SeatStatus>
+    - seatLocks: Map<Integer, ReentrantLock>
+    + getMovie(): Movie
+    + getShowDate(): LocalDate
+    + getStartTime(): LocalTime
+    + lockSeats(seatIds: List<Integer>): boolean
+    + confirmSeats(seatIds: List<Integer>): void
+    + releaseSeats(seatIds: List<Integer>): void
+}
+
+class Movie {
+    - name: String
+    + getName(): String
+}
+
+class Booking {
+    - bookingId: UUID
+    - user: User
+    - show: Show
+    - seats: List<Integer>
+    - payment: Payment
+    + getBookingId(): UUID
+    + getUser(): User
+    + getPayment(): Payment
+}
+
+class User {
+    - userId: String
+    - name: String
+}
+
+class Payment {
+    - paymentId: UUID
+    - status: PaymentStatus
+    + getPaymentId(): UUID
+    + getStatus(): PaymentStatus
+}
+
+enum City {
+    BANGALORE
+    DELHI
+}
+
+enum PaymentStatus {
+    SUCCESS
+    FAILED
+}
+
+enum SeatCategory {
+    SILVER
+}
+
+enum SeatStatus {
+    AVAILABLE
+    BOOKED
+}
+
+' Relationships
+BookMyShowApp *-- TheatreController
+BookMyShowApp *-- BookingController
+
+TheatreController *-- TheatreService
+BookingController *-- BookingService
+
+TheatreService --> Theatre
+TheatreService --> Screen
+TheatreService --> Show
+TheatreService --> Movie
+
+BookingService --> Booking
+BookingService --> Payment
+BookingService --> Show
+BookingService --> User
+
+Theatre *-- Screen
+Screen *-- Seat
+Screen *-- Show
+
+Show --> Movie
+Booking --> User
+Booking --> Show
+Booking --> Payment
+
+Payment --> PaymentStatus
+Seat --> SeatCategory
+Theatre --> City
+
+@enduml</content>
+<parameter name="filePath">d:\Java and spring boot\lld_sj\lld-my-remote\src\main\java\com\conceptcoding\interviewquestions\book_my_show\BookMyShow.puml
