@@ -1,0 +1,33 @@
+package com.lld.interviewquestions.book_my_show.entities;
+
+import java.util.List;
+
+import com.lld.interviewquestions.book_my_show.enums.City;
+
+public class Theatre {
+
+    private final String name;
+    private final City city;
+    private final List<Screen> screens;
+    //address info etc.
+
+    public Theatre(String name, City city, List<Screen> screens) {
+        this.name = name;
+        this.city = city;
+        this.screens = screens;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Screen> getScreens() {
+        return screens;
+    }
+}
+
+
