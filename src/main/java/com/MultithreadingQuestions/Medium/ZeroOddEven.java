@@ -1,5 +1,6 @@
 package com.MultithreadingQuestions.Medium;
 
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -84,10 +85,67 @@ class ZeroEvenOddUsingReentrantLock {
     }
 }
 
+class ZeroEvenOddUsingSemaphores {
+    int n;
+    private Semaphore zeroSemaphore = new Semaphore(1);
+    private Semaphore evenSemaphore = new Semaphore(0);
+    private Semaphore oddSemaphore = new Semaphore(0);
+    private int flag = 1;
+
+    public ZeroEvenOddUsingSemaphores(int n) {
+        this.n = n;
+    }
+
+    public void zero() {
+
+        for (int i = 1; i <= n; i++) {
+            try {
+                zeroSemaphore.acquire();
+                System.out.println(0 + " ");
+                if (flag == 1) {
+                    oddSemaphore.release();
+                } else {
+                    evenSemaphore.release();
+                }
+                flag = 1 - flag;
+
+            } catch (Exception e) {
+            }
+        }
+    }
+    
+    public void odd() {
+
+        for (int i = 1; i <= n; i+=2) {
+            try {
+                oddSemaphore.acquire();
+                System.out.println(i + " ");
+                zeroSemaphore.release();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    public void even() {
+
+        for (int i = 2; i <= n; i+=2) {
+            try {
+                evenSemaphore.acquire();
+                System.out.println(i + " ");
+                zeroSemaphore.release();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+}
+
 public class ZeroOddEven {
 
     public static void main(String[] args) throws InterruptedException {
-        ZeroEvenOddUsingReentrantLock zeroEvenOdd = new ZeroEvenOddUsingReentrantLock(5);
+
+        //ZeroEvenOddUsingReentrantLock zeroEvenOdd = new ZeroEvenOddUsingReentrantLock(5);
+        ZeroEvenOddUsingSemaphores zeroEvenOdd = new ZeroEvenOddUsingSemaphores(1000);
 
         Thread zeroThread = new Thread(zeroEvenOdd::zero);
         Thread evenThread = new Thread(zeroEvenOdd::even);
