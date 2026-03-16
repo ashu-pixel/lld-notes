@@ -40,6 +40,7 @@ class Worker extends Thread {
                 task.run();
             } catch (InterruptedException e) {
                 System.out.println("Worker thread " + Thread.currentThread().getName() + " was interrupted.");
+                Thread.currentThread().interrupt(); 
                 break;  
             }
         }
