@@ -75,8 +75,9 @@ class ThreadPool {
 public class CustomThreadPool {
 
     public static void main(String[] args) throws InterruptedException {
-        // BlockingQueue<Task> taskQueue = new LinkedBlockingQueue<>(5);
-        BlockingQueue<Task> taskQueue = new ArrayBlockingQueue<>(5);
+        //BlockingQueue<Task> taskQueue = new ArrayBlockingQueue<>(5);
+        // Better to use LinkedBlockingQueue as its unbounded by default
+        BlockingQueue<Task> taskQueue = new LinkedBlockingQueue<>(5);
         ThreadPool threadPool = new ThreadPool(3, taskQueue);
 
         for (int i = 0; i < 10; i++) {
