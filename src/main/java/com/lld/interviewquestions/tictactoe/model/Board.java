@@ -7,16 +7,15 @@ import java.util.List;
 
 public class Board {
 
-    public int size;
-    public PlayingPiece[][] board;
+    private int size;
+    private PlayingPiece[][] board;
 
     public Board(int size) {
         this.size = size;
         board = new PlayingPiece[size][size];
     }
 
-
-    public boolean addPiece(int row, int column, PlayingPiece playingPiece) {
+    public boolean addPiece(int row, int column, PlayingPiece playingPiece) throws ArrayIndexOutOfBoundsException{
 
         if (board[row][column] != null) {
             return false;
@@ -39,6 +38,14 @@ public class Board {
         }
 
         return freeCells;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public PlayingPiece getBoardPiece(int row, int column) {
+        return board[row][column];
     }
 
     public void printBoard() {

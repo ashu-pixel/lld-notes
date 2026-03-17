@@ -15,7 +15,6 @@ public class TicTacToeGame {
     Board gameBoard;
     Player winner;
 
-
     public void initializeGame() {
 
         // Creating 2 Players
@@ -49,19 +48,30 @@ public class TicTacToeGame {
                 continue;
             }
 
-            // Read the user input
-            System.out.print("Player: " + currentPlayer.name + " - Please enter [row, column]: ");
-            Scanner inputScanner = new Scanner(System.in);
-            String s = inputScanner.nextLine();
-            String[] values = s.split(",");
-            int inputRow = Integer.valueOf(values[0]);
-            int inputColumn = Integer.valueOf(values[1]);
+            // Initialize to invalid positions
+            int inputRow = gameBoard.getSize();
+            int inputColumn = gameBoard.getSize();
 
+            boolean validMove = false;
 
-            // Place the piece in the board
-            boolean validMove = gameBoard.addPiece(inputRow, inputColumn, currentPlayer.playingPiece);
+            try {
+                // Read the user input
+                System.out.print("Player: " + currentPlayer.name + " - Please enter [row, column]: ");
+                Scanner inputScanner = new Scanner(System.in);
+                String s = inputScanner.nextLine();
+                String[] values = s.split(",");
+                inputRow = Integer.valueOf(values[0]);
+                inputColumn = Integer.valueOf(values[1]);
+
+                // Place the piece in the board
+                validMove = gameBoard.addPiece(inputRow, inputColumn, currentPlayer.playingPiece);
+            } catch (Exception e) {
+                validMove = false;
+            }
+
             if (!validMove) {
-                // Invalid Move: Player can not insert the piece into this cell, player has to choose another cell
+                // Invalid Move: Player can not insert the piece into this cell, player has to
+                // choose another cell
                 System.out.println("Incorrect position chosen, try again!");
                 players.addFirst(currentPlayer); // Add the player back to the queue(in the front)
                 continue;
@@ -88,32 +98,33 @@ public class TicTacToeGame {
         boolean antiDiagonalMatch = true;
 
         // Check Row
-        for (int i = 0; i < gameBoard.size; i++) {
-            if (gameBoard.board[row][i] == null || gameBoard.board[row][i].pieceType != pieceType) {
+        for (int i = 0; i < gameBoard.getSize(); i++) {
+            if (gameBoard.getBoardPiece(row, i) == null || gameBoard.getBoardPiece(row, i).pieceType != pieceType) {
                 rowMatch = false;
                 break;
             }
         }
 
         // Check Column
-        for (int i = 0; i < gameBoard.size; i++) {
-            if (gameBoard.board[i][column] == null || gameBoard.board[i][column].pieceType != pieceType) {
+        for (int i = 0; i < gameBoard.getSize(); i++) {
+            if (gameBoard.getBoardPiece(i, column) == null
+                    || gameBoard.getBoardPiece(i, column).pieceType != pieceType) {
                 columnMatch = false;
                 break;
             }
         }
 
         // Check Diagonally
-        for (int i = 0, j = 0; i < gameBoard.size; i++, j++) {
-            if (gameBoard.board[i][j] == null || gameBoard.board[i][j].pieceType != pieceType) {
+        for (int i = 0, j = 0; i < gameBoard.getSize(); i++, j++) {
+            if (gameBoard.getBoardPiece(i, j) == null || gameBoard.getBoardPiece(i, j).pieceType != pieceType) {
                 diagonalMatch = false;
                 break;
             }
         }
 
         // Check Anti-Diagonally
-        for (int i = 0, j = gameBoard.size - 1; i < gameBoard.size; i++, j--) {
-            if (gameBoard.board[i][j] == null || gameBoard.board[i][j].pieceType != pieceType) {
+        for (int i = 0, j = gameBoard.getSize() - 1; i < gameBoard.getSize(); i++, j--) {
+            if (gameBoard.getBoardPiece(i, j) == null || gameBoard.getBoardPiece(i, j).pieceType != pieceType) {
                 antiDiagonalMatch = false;
                 break;
             }

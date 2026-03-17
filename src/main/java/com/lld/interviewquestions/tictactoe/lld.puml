@@ -1,0 +1,64 @@
+@startuml
+package "com.lld.interviewquestions.tictactoe" as tictactoe {
+    class PlayGame {
+        +main(String[] args)
+    }
+
+    class TicTacToeGame {
+        -Deque<Player> players
+        -Board gameBoard
+        -Player winner
+        +initializeGame()
+        +startGame(): GameStatus
+        +checkForWinner(int, int, PieceType): boolean
+    }
+
+    PlayGame --> TicTacToeGame : creates / runs
+
+    TicTacToeGame --> Board : uses
+    TicTacToeGame --> Player : uses
+    TicTacToeGame --> GameStatus : returns
+    TicTacToeGame --> PieceType : checks
+
+    package "com.lld.interviewquestions.tictactoe.model" as model {
+        class Board {
+            +int size
+            +PlayingPiece[][] board
+            +Board(int)
+            +addPiece(int,int,PlayingPiece): boolean
+            +getFreeCells(): List<Pair<Integer,Integer>>
+            +printBoard()
+        }
+
+        class Player {
+            +String name
+            +PlayingPiece playingPiece
+            +Player(String,PlayingPiece)
+        }
+
+        class PlayingPiece {
+            -PieceType pieceType
+            +PlayingPiece(PieceType)
+        }
+
+        class PlayingPieceX
+        class PlayingPieceO
+
+        enum GameStatus {
+            DRAW
+            WIN
+        }
+
+        enum PieceType {
+            X
+            O
+        }
+
+        Player --> PlayingPiece : has
+        Board --> PlayingPiece : stores
+        PlayingPieceX --|> PlayingPiece
+        PlayingPieceO --|> PlayingPiece
+        PlayingPiece --> PieceType : has
+    }
+}
+@enduml
