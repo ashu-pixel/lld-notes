@@ -6,9 +6,8 @@ import java.util.concurrent.locks.ReentrantLock;
 Thread.Interupt() is a polite way to ask thread to stop.
 Meaning it just asks the thread does not force the thread to stop 
 
-Interupt is only thrown in case when thread is waiting in sleep, wait, join, blockingQ.take 
-But the flag might get set its your job to handle if its set 
-
+Interrupt exception is only thrown in case when thread is waiting in sleep, wait, join, blockingQ.take 
+But the flag is set its your job to handle
 */
 
 class MyThread extends Thread {
@@ -36,9 +35,8 @@ class MyThread extends Thread {
     }
 }
 
-// Case when thread is waiting for rehentrant lock then
-// interrupt will not throw InterruptedException but it will set the interrupt
-// flag to true
+// Case when thread is waiting for reentrant lock then
+// interrupt will not throw InterruptedException but it will set the interrupt flag to true
 // when the lock is released and it sees the sleep method it will throw
 // InterruptedException and the thread will be interrupted
 // Note : There is not way to interrupt a thread when its waiting for synchronized block
@@ -89,7 +87,6 @@ public class Interupts {
     }
 }
 
-
  
 // | Case                                | Can be interrupted immediately?  | Interrupt Flag Set? | Flag Cleared Automatically? | Why? |
 // |-------------------------------------|----------------------------------|---------------------|-----------------------------|------|
@@ -99,7 +96,3 @@ public class Interupts {
 // | ReentrantLock.lock()                | No                               | Yes                 | No                          | lock() ignores interrupts while waiting for the lock; flag remains set. |
 // | synchronized                        | No                               | Yes                 | No                          | JVM monitor lock acquisition cannot be interrupted; thread waits until lock is available. |
 // | Normal running thread (not blocked) | No (keeps running)               | Yes                 | No                          | interrupt() only sets the flag; the thread must check it manually. |
-
-
-
- 

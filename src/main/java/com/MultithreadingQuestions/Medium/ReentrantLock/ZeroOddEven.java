@@ -1,4 +1,4 @@
-package com.MultithreadingQuestions.Medium;
+package com.MultithreadingQuestions.Medium.ReentrantLock;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Condition;
@@ -141,7 +141,6 @@ class ZeroEvenOddUsingSemaphores {
 }
 
 public class ZeroOddEven {
-
     public static void main(String[] args) throws InterruptedException {
 
         //ZeroEvenOddUsingReentrantLock zeroEvenOdd = new ZeroEvenOddUsingReentrantLock(5);

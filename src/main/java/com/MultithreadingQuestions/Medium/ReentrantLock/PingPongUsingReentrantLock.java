@@ -1,4 +1,4 @@
-package com.MultithreadingQuestions.Medium;
+package com.MultithreadingQuestions.Medium.ReentrantLock;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;

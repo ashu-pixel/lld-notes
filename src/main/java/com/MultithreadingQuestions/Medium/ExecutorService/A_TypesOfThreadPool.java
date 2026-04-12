@@ -102,7 +102,7 @@ max pool size: the maximum number of threads to allow in the pool
  * -------------------------------------------------------
  * Whether to use 1. LinkedBlockingQueue or 2. ArrayBlockingQueue ??
  * 
- * - If threads are fixed to we want the tasks to pile up in the queue, then we
+ * - If threads are fixed, we want the tasks to pile up in the queue, then we
  * can use LinkedBlockingQueue as its unbounded by default, but if we want to
  * limit the number of tasks in the queue, then we can use ArrayBlockingQueue as
  * it is bounded and we can specify the capacity of the queue, if the queue is
