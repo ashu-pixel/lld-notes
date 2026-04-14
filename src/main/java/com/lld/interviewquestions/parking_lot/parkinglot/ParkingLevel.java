@@ -11,9 +11,8 @@ public class ParkingLevel {
     private final int levelNumber;
     private final Map<VehicleType, ParkingSpotManager> managers;
 
-
     public ParkingLevel(int levelNumber,
-                        Map<VehicleType, ParkingSpotManager> managers) {
+            Map<VehicleType, ParkingSpotManager> managers) {
         this.levelNumber = levelNumber;
         this.managers = managers;
     }
@@ -43,4 +42,3 @@ public class ParkingLevel {
         return levelNumber;
     }
 }
-

@@ -9,5 +9,3 @@ public class EntranceGate {
         return building.allocate(vehicle);
     }
 }
-
-

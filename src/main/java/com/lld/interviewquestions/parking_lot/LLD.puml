@@ -135,7 +135,7 @@ FourWheelerSpotManager --|> ParkingSpotManager
 
 RandomLookupStrategy ..|> ParkingSpotLookupStrategy
 
-ExitGate --> CostComputation : costComputation
+ExitGate --> CostComputation : does
 
 CostComputation --> PricingStrategy : pricingStrategy
 
@@ -145,7 +145,7 @@ CashPayment ..|> Payment
 UPIPayment ..|> Payment
 
 Ticket --> Vehicle : vehicle
-Ticket --> ParkingLevel : level
+Ticket --> ParkingLevel : mentions
 Ticket --> ParkingSpot : spot
 
 Vehicle --> VehicleType : vehicleType

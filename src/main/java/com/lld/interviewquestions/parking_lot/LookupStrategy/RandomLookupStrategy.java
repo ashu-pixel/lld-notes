@@ -16,5 +16,3 @@ public class RandomLookupStrategy implements ParkingSpotLookupStrategy {
         return null;
     }
 }
-
-

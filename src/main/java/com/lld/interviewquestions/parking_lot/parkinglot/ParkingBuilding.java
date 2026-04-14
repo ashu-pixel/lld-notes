@@ -5,14 +5,12 @@ import java.util.List;
 import com.lld.interviewquestions.parking_lot.Ticket;
 import com.lld.interviewquestions.parking_lot.Entity.ParkingSpot;
 import com.lld.interviewquestions.parking_lot.Entity.Vehicle;
-import com.lld.interviewquestions.parking_lot.pricing.CostComputation;
 
 public class ParkingBuilding {
 
     private final List<ParkingLevel> levels;
 
-    public ParkingBuilding(List<ParkingLevel> levels,
-                           CostComputation costComputation) {
+    public ParkingBuilding(List<ParkingLevel> levels ) {
         this.levels = levels;
     }
 

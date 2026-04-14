@@ -29,6 +29,8 @@ public class A_TypesOfThreadPool {
         // Cached thread pool - creates new threads as needed, but will reuse previously
         // constructed threads when they are available
         // If some threads are idle for 60 seconds, they will be killed and removed
+        // Good when you have short lived burst of task 
+        // If used with long living task can increase memory usage 
         executorService = Executors.newCachedThreadPool();
         // ------------------------------------------------------------------------------
 
