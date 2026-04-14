@@ -1,6 +1,7 @@
 package com.lld.interviewquestions.parking_lot.parkinglot;
 
 import java.util.Map;
+import java.util.Optional;
 
 import com.lld.interviewquestions.parking_lot.Entity.ParkingSpot;
 import com.lld.interviewquestions.parking_lot.enums.VehicleType;
@@ -24,18 +25,19 @@ public class ParkingLevel {
 
     public ParkingSpot park(VehicleType type) {
         ParkingSpotManager manager = managers.get(type);
-        if (manager == null) {
-            throw new IllegalArgumentException(
-                    "No parking manager for vehicle type: " + type);
-        }
-        return manager.park();
+
+        return Optional.ofNullable(manager)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "No parking manager for vehicle type: " + type))
+                .park();
     }
 
     public void unPark(VehicleType type, ParkingSpot spot) {
         ParkingSpotManager manager = managers.get(type);
-        if (manager != null) {
-            manager.unPark(spot);
-        }
+        Optional.ofNullable(manager)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "No parking manager for vehicle type: " + type))
+                .unPark(spot);
     }
 
     public int getLevelNumber() {
