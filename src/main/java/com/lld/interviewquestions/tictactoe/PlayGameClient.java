@@ -2,7 +2,7 @@ package com.lld.interviewquestions.tictactoe;
 
 import com.lld.interviewquestions.tictactoe.model.GameStatus;
 
-public class PlayGame {
+public class PlayGameClient {
 
     public static void main(String[] args) {
         System.out.println("\n===>>> TicTacToe Game\n");
