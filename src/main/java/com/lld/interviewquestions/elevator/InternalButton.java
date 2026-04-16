@@ -10,7 +10,7 @@ public class InternalButton {
     }
 
     public void pressButton(int destinationFloor) {
-        //we can also remove teh Internal dispatcher from mid, but generally say for validation, controller and
+        //we can also remove the Internal dispatcher from mid, but generally say for validation, controller and
         //similar code flow like external button, its good have
 
         InternalDispatcher.getInstance()

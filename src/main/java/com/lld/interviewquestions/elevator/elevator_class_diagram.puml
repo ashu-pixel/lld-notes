@@ -108,8 +108,8 @@ Floor --> ExternalButton : has downButton
 ExternalButton --> ExternalDispatcher : uses
 ExternalDispatcher --> ElevatorScheduler : uses
 ElevatorScheduler --> ElevatorSelectionStrategy : uses
-ElevatorScheduler --> ElevatorController : manages *
-ElevatorController --> ElevatorCar : controls
+ElevatorScheduler --> ElevatorController : manages many
+ElevatorController --> ElevatorCar : controls just 1 car 
 ElevatorCar --> Door : has
 ElevatorCar --> ElevatorDirection : uses
 Door --> DoorState : uses

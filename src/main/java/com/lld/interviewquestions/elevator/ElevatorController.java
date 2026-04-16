@@ -47,10 +47,10 @@ public class ElevatorController implements Runnable {
 
     @Override
     public void run() {
-        controlElevator();
+        startElevator();
     }
 
-    public void controlElevator() {
+    public void startElevator() {
 
         while (true) {
 

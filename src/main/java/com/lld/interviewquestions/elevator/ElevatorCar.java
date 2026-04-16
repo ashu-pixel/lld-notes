@@ -2,6 +2,10 @@ package com.lld.interviewquestions.elevator;
 
 import com.lld.interviewquestions.elevator.enums.ElevatorDirection;
 
+// this is dumb object which does not decide where to go, so if command has
+// come, to go particular direction and particular floor, it just moves there
+// no matter what its current state and floor is.
+
 public class ElevatorCar {
 
     int id;
@@ -22,8 +26,6 @@ public class ElevatorCar {
     }
 
     public void moveElevator(int destinationFloor) {
-        //this is dump object, so if command has come, to go particular direction and particular floor, it just move
-        //no matter what its current state and floor.
 
         this.nextFloorStoppage = destinationFloor;
         if (this.currentFloor == nextFloorStoppage) {
@@ -33,29 +35,29 @@ public class ElevatorCar {
 
         int startFloor = this.currentFloor;
         door.closeDoor(id);
-        if(nextFloorStoppage >=currentFloor) {
+        if (nextFloorStoppage >= currentFloor) {
             movingDirection = ElevatorDirection.UP;
             showDisplay();
-            //+1 i am doing bcoz, floor start from 0,1,2.... so if anyone goes from 1st floor to 2nd, so only 1 floor
-            //lift has to move, not 2.
-            for (int i = startFloor+1; i<= nextFloorStoppage; i++) {
+            // +1 i am doing bcoz, floor start from 0,1,2.... so if anyone goes from 1st
+            // floor to 2nd, so only 1 floor
+            // lift has to move, not 2.
+            for (int i = startFloor + 1; i <= nextFloorStoppage; i++) {
                 try {
                     Thread.sleep(5);
-                }catch (Exception e) {
+                } catch (Exception e) {
 
                 }
                 setCurrentFloor(i);
                 showDisplay();
             }
-        }
-        else  {
+        } else {
             movingDirection = ElevatorDirection.DOWN;
 
             showDisplay();
-            for (int i = startFloor-1; i>= nextFloorStoppage; i--) {
+            for (int i = startFloor - 1; i >= nextFloorStoppage; i--) {
                 try {
                     Thread.sleep(5);
-                }catch (Exception e) {
+                } catch (Exception e) {
 
                 }
                 setCurrentFloor(i);
@@ -69,4 +71,3 @@ public class ElevatorCar {
         this.currentFloor = currentFloor;
     }
 }
-
