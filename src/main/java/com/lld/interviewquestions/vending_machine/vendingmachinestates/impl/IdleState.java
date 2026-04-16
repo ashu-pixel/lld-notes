@@ -1,10 +1,10 @@
-package com.lld.behavioralpatterns.state.vendingmachinestates.impl;
+package com.lld.interviewquestions.vending_machine.vendingmachinestates.impl;
 
 import java.util.ArrayList;
 
-import com.lld.behavioralpatterns.state.context.Item;
-import com.lld.behavioralpatterns.state.context.VendingMachine;
-import com.lld.behavioralpatterns.state.vendingmachinestates.State;
+import com.lld.interviewquestions.vending_machine.context.Item;
+import com.lld.interviewquestions.vending_machine.context.VendingMachine;
+import com.lld.interviewquestions.vending_machine.vendingmachinestates.State;
 
 public class IdleState extends State {
 

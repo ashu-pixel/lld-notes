@@ -1,11 +1,11 @@
-package com.lld.behavioralpatterns.state.context;
+package com.lld.interviewquestions.vending_machine.context;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lld.behavioralpatterns.state.vendingmachinestates.Coin;
-import com.lld.behavioralpatterns.state.vendingmachinestates.State;
-import com.lld.behavioralpatterns.state.vendingmachinestates.impl.IdleState;
+import com.lld.interviewquestions.vending_machine.vendingmachinestates.Coin;
+import com.lld.interviewquestions.vending_machine.vendingmachinestates.State;
+import com.lld.interviewquestions.vending_machine.vendingmachinestates.impl.IdleState;
 
     public class VendingMachine {
 

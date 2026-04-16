@@ -1,9 +1,9 @@
-package com.lld.behavioralpatterns.state.vendingmachinestates;
+package com.lld.interviewquestions.vending_machine.vendingmachinestates;
 
 import java.util.List;
 
-import com.lld.behavioralpatterns.state.context.Item;
-import com.lld.behavioralpatterns.state.context.VendingMachine;
+import com.lld.interviewquestions.vending_machine.context.Item;
+import com.lld.interviewquestions.vending_machine.context.VendingMachine;
 
 
 public abstract class State {

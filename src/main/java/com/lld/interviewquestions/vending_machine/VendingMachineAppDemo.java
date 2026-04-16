@@ -1,12 +1,12 @@
-package com.lld.behavioralpatterns.state;
+package com.lld.interviewquestions.vending_machine;
 
 
-import com.lld.behavioralpatterns.state.context.Item;
-import com.lld.behavioralpatterns.state.context.ItemShelf;
-import com.lld.behavioralpatterns.state.context.ItemType;
-import com.lld.behavioralpatterns.state.context.VendingMachine;
-import com.lld.behavioralpatterns.state.vendingmachinestates.Coin;
-import com.lld.behavioralpatterns.state.vendingmachinestates.State;
+import com.lld.interviewquestions.vending_machine.context.Item;
+import com.lld.interviewquestions.vending_machine.context.ItemShelf;
+import com.lld.interviewquestions.vending_machine.context.ItemType;
+import com.lld.interviewquestions.vending_machine.context.VendingMachine;
+import com.lld.interviewquestions.vending_machine.vendingmachinestates.Coin;
+import com.lld.interviewquestions.vending_machine.vendingmachinestates.State;
 
 public class VendingMachineAppDemo {
 

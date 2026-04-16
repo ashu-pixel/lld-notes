@@ -1,4 +1,4 @@
-package com.lld.behavioralpatterns.state.context;
+package com.lld.interviewquestions.vending_machine.context;
 
 public class Inventory {
 

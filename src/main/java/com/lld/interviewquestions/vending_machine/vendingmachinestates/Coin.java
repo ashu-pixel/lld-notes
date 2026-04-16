@@ -1,4 +1,4 @@
-package com.lld.behavioralpatterns.state.vendingmachinestates;
+package com.lld.interviewquestions.vending_machine.vendingmachinestates;
 
 public enum Coin {
 
