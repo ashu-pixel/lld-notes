@@ -1,6 +1,6 @@
 package com.lld.interviewquestions.parking_lot.pricing;
 
-import com.lld.interviewquestions.parking_lot.Ticket;
+import com.lld.interviewquestions.parking_lot.Entity.Ticket;
 
 public interface PricingStrategy {
 

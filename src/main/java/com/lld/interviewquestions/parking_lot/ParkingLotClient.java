@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lld.interviewquestions.parking_lot.Entity.ParkingSpot;
+import com.lld.interviewquestions.parking_lot.Entity.Ticket;
 import com.lld.interviewquestions.parking_lot.Entity.Vehicle;
 import com.lld.interviewquestions.parking_lot.LookupStrategy.ParkingSpotLookupStrategy;
 import com.lld.interviewquestions.parking_lot.LookupStrategy.RandomLookupStrategy;

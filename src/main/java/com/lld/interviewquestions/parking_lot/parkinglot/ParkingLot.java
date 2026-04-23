@@ -1,6 +1,6 @@
 package com.lld.interviewquestions.parking_lot.parkinglot;
 
-import com.lld.interviewquestions.parking_lot.Ticket;
+import com.lld.interviewquestions.parking_lot.Entity.Ticket;
 import com.lld.interviewquestions.parking_lot.Entity.Vehicle;
 import com.lld.interviewquestions.parking_lot.payment.Payment;
 

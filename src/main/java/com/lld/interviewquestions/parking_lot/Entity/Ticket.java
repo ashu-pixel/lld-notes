@@ -1,9 +1,7 @@
-package com.lld.interviewquestions.parking_lot;
+package com.lld.interviewquestions.parking_lot.Entity;
 
 import java.time.LocalDateTime;
 
-import com.lld.interviewquestions.parking_lot.Entity.ParkingSpot;
-import com.lld.interviewquestions.parking_lot.Entity.Vehicle;
 import com.lld.interviewquestions.parking_lot.parkinglot.ParkingLevel;
 
 public class Ticket {

@@ -2,8 +2,8 @@ package com.lld.interviewquestions.parking_lot.parkinglot;
 
 import java.util.List;
 
-import com.lld.interviewquestions.parking_lot.Ticket;
 import com.lld.interviewquestions.parking_lot.Entity.ParkingSpot;
+import com.lld.interviewquestions.parking_lot.Entity.Ticket;
 import com.lld.interviewquestions.parking_lot.Entity.Vehicle;
 
 public class ParkingBuilding {
