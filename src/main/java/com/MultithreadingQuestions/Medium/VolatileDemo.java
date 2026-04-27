@@ -3,14 +3,14 @@ package com.MultithreadingQuestions.Medium;
 public class VolatileDemo {
 
     /*
-    ===================== PROBLEM =====================
-
-    One thread updates a flag (running = false),
-    but another thread may NEVER see the update
-    due to CPU caching → infinite loop.
-
-    This is a VISIBILITY problem.
-    */
+     * ===================== PROBLEM =====================
+     * 
+     * One thread updates a flag (running = false),
+     * but another thread may NEVER see the update
+     * due to CPU caching → infinite loop.
+     * 
+     * This is a VISIBILITY problem.
+     */
 
     static class WithoutVolatile {
         static boolean running = true;
@@ -36,12 +36,11 @@ public class VolatileDemo {
         }
     }
 
-
     /*
-    ===================== SOLUTION =====================
-
-    Use 'volatile' to ensure visibility across threads.
-    */
+     * ===================== SOLUTION =====================
+     * 
+     * Use 'volatile' to ensure visibility across threads.
+     */
 
     static class WithVolatile {
         static volatile boolean running = true;
@@ -67,23 +66,28 @@ public class VolatileDemo {
         }
     }
 
-
     /*
-    ===================== EXPLANATION =====================
-
-    - volatile ensures VISIBILITY:
-      → changes by one thread are immediately visible to others
-
-    - prevents CPU caching issues and instruction reordering
-
-    - DOES NOT guarantee atomicity
-
-    - Use volatile for:
-      ✔ flags (isRunning, shutdown)
-      ✔ status indicators
-
-    - DO NOT use volatile for:
-      ❌ count++
-      ❌ compound operations
-    */
+     * ===================== EXPLANATION =====================
+     * 
+     * - volatile ensures VISIBILITY:
+     * → changes by one thread are immediately visible to others
+     * 
+     * - prevents CPU caching issues and instruction reordering
+     * 
+     * - The volatile keyword ensures visibility and prevents reordering by
+     * establishing a happens-before relationship between writes and subsequent
+     * reads of the variable.
+     * However, it does not guarantee atomicity, so it cannot be used for compound
+     * operations like increment.”
+     * 
+     * - DOES NOT guarantee atomicity
+     * 
+     * - Use volatile for:
+     * ✔ flags (isRunning, shutdown)
+     * ✔ status indicators
+     * 
+     * - DO NOT use volatile for:
+     * ❌ count++
+     * ❌ compound operations
+     */
 }
