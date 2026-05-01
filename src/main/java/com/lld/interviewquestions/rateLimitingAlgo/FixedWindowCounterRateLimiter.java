@@ -2,7 +2,7 @@ package com.lld.interviewquestions.rateLimitingAlgo;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-public class FixedWindowRateLimiter {
+public class FixedWindowCounterRateLimiter {
 
     private final int maxRequests;
     private final long windowSizeMillis;
@@ -12,7 +12,7 @@ public class FixedWindowRateLimiter {
 
     private final ReentrantLock lock = new ReentrantLock();
 
-    public FixedWindowRateLimiter(int maxRequests, long windowSizeMillis) {
+    public FixedWindowCounterRateLimiter(int maxRequests, long windowSizeMillis) {
         this.maxRequests = maxRequests;
         this.windowSizeMillis = windowSizeMillis;
         this.windowStart = System.currentTimeMillis();
