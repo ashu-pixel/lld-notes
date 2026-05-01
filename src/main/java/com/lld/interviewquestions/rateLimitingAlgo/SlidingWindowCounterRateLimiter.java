@@ -2,7 +2,7 @@ package com.lld.interviewquestions.rateLimitingAlgo;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-public class SlidingWindowCounterRateLimiter {
+public class SlidingWindowCounterRateLimiter implements RateLimiter {
 
     private final int maxRequests;
     private final long windowSizeMillis;

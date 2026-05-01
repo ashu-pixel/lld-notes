@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class SlidingWindowLogRateLimiter {
+public class SlidingWindowLogRateLimiter implements RateLimiter {
 
     private final int maxRequests;
     private final long windowSizeMillis;

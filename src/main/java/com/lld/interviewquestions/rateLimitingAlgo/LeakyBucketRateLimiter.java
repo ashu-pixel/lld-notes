@@ -2,7 +2,7 @@ package com.lld.interviewquestions.rateLimitingAlgo;
 
 import java.util.concurrent.*;
 
-public class LeakyBucketRateLimiter {
+public class LeakyBucketRateLimiter implements RateLimiter {
 
     private final int capacity;                 // max queue size
     private final BlockingQueue<Long> queue;    // request queue

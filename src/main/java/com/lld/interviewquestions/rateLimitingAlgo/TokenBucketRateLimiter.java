@@ -3,7 +3,7 @@ package com.lld.interviewquestions.rateLimitingAlgo;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.TimeUnit;
 
-public class TokenBucketRateLimiter {
+public class TokenBucketRateLimiter implements RateLimiter {
 
     private final long capacity;          // max tokens
     private final double refillRate;      // tokens per second
@@ -24,12 +24,12 @@ public class TokenBucketRateLimiter {
     }
 
     /** Try to acquire 1 token. Returns immediately (non-blocking). */
-    public boolean tryAcquire() {
+    public boolean allowRequest() {
         return tryAcquire(1);
     }
 
     /** Try to acquire n tokens. Returns immediately (non-blocking). */
-    public boolean tryAcquire(int permits) {
+    private boolean tryAcquire(int permits) {
         if (permits <= 0 || permits > capacity) throw new IllegalArgumentException("permits must be > 0 and <= capacity");
 
         lock.lock();
