@@ -1,6 +1,6 @@
-package com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions;
+package com.MultithreadingQuestions.Medium.DiningPhilosophersProblem.Solutions;
 
-import com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Fork.Fork;
+import com.MultithreadingQuestions.Medium.DiningPhilosophersProblem.Solutions.Fork.Fork;
 
 public class Solution1 extends Philosopher {
 

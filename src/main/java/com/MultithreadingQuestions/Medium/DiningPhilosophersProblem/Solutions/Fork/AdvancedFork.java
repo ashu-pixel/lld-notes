@@ -1,4 +1,4 @@
-package com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Fork;
+package com.MultithreadingQuestions.Medium.DiningPhilosophersProblem.Solutions.Fork;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;

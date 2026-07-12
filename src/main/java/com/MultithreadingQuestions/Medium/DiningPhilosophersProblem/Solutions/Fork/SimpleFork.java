@@ -1,4 +1,4 @@
-package com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Fork;
+package com.MultithreadingQuestions.Medium.DiningPhilosophersProblem.Solutions.Fork;
 
 
 public class SimpleFork implements Fork {

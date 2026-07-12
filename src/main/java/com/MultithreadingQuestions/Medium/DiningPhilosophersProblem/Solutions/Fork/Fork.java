@@ -1,4 +1,4 @@
-package com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Fork;
+package com.MultithreadingQuestions.Medium.DiningPhilosophersProblem.Solutions.Fork;
 
 public interface Fork {
     boolean pickUp(int id) throws Exception; 

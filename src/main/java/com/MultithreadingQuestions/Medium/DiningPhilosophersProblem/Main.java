@@ -1,14 +1,14 @@
-package com.MultithreadingQuestions.DiningPhilosophersProblem;
+package com.MultithreadingQuestions.Medium.DiningPhilosophersProblem;
 
 import java.util.concurrent.Semaphore;
 
-import com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.NaiveSolution;
-import com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Solution1;
-import com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Solution2;
-import com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Solution3;
-import com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Fork.AdvancedFork;
-import com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Fork.Fork;
-import com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Fork.SimpleFork;
+import com.MultithreadingQuestions.Medium.DiningPhilosophersProblem.Solutions.Fork.AdvancedFork;
+import com.MultithreadingQuestions.Medium.DiningPhilosophersProblem.Solutions.Fork.Fork;
+import com.MultithreadingQuestions.Medium.DiningPhilosophersProblem.Solutions.Fork.SimpleFork;
+import com.MultithreadingQuestions.Medium.DiningPhilosophersProblem.Solutions.NaiveSolution;
+import com.MultithreadingQuestions.Medium.DiningPhilosophersProblem.Solutions.Solution1;
+import com.MultithreadingQuestions.Medium.DiningPhilosophersProblem.Solutions.Solution2;
+import com.MultithreadingQuestions.Medium.DiningPhilosophersProblem.Solutions.Solution3;
 
 public class Main {
 

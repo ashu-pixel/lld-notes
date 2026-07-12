@@ -1,8 +1,8 @@
-package com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions;
+package com.MultithreadingQuestions.Medium.DiningPhilosophersProblem.Solutions;
 
 import java.util.concurrent.Semaphore;
 
-import com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Fork.Fork;
+import com.MultithreadingQuestions.Medium.DiningPhilosophersProblem.Solutions.Fork.Fork;
 
 public class Solution2 extends Philosopher {
 
