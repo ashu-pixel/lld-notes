@@ -16,7 +16,7 @@ public class Main {
 
         int n = 5;
         Fork[] forks = new Fork[n];
-        int solFlag = 4;
+        int solFlag = 1;
 
         for (int i = 0; i < n; i++) {
             if (solFlag == 4) {
@@ -33,6 +33,10 @@ public class Main {
             new Thread(
                     new NaiveSolution(i, forks[(i + 1) % n], forks[i])
             ).start();
+            
+            // new Thread(
+            //         new NaiveSolutionUsingReentrantLock(i, forks[(i + 1) % n], forks[i])
+            // ).start();
         }
 
         /* Solution 2
