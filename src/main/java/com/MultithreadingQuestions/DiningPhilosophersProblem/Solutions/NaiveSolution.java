@@ -1,9 +1,11 @@
-package com.MultithreadingQuestions.DiningPhilosophersProblem.Solution;
+package com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions;
+
+import com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Fork.Fork;
 
 public class NaiveSolution extends Philosopher {
 
     
-    public NaiveSolution(int id, Object leftFork, Object rightFork) {
+    public NaiveSolution(int id, Fork leftFork, Fork rightFork) {
         super(id, leftFork, rightFork);
     }
 

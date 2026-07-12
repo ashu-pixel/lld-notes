@@ -1,12 +1,14 @@
-package com.MultithreadingQuestions.DiningPhilosophersProblem.Solution;
+package com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions;
+
+import com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Fork.Fork;
 
 public abstract class Philosopher implements Runnable {
 
     protected final int id;
-    protected final Object leftFork;
-    protected final Object rightFork;
+    protected final Fork leftFork;
+    protected final Fork rightFork;
 
-    public Philosopher(int id, Object leftFork, Object rightFork) {
+    public Philosopher(int id, Fork leftFork, Fork rightFork) {
         this.id = id;
         this.leftFork = leftFork;
         this.rightFork = rightFork;
@@ -14,11 +16,11 @@ public abstract class Philosopher implements Runnable {
 
     protected void think() throws InterruptedException {
         System.out.println("Philosopher " + id + " is thinking");
-        Thread.sleep(1000);
+        Thread.sleep((long) (Math.random() * 1000));
     }
 
     protected void eat() throws InterruptedException {
         System.out.println("Philosopher " + id + " is eating");
-        Thread.sleep(1000);
+        Thread.sleep((long) (Math.random() * 1000));
     }
 }

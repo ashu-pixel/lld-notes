@@ -1,12 +1,14 @@
-package com.MultithreadingQuestions.DiningPhilosophersProblem.Solution;
+package com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions;
 
 import java.util.concurrent.Semaphore;
+
+import com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Fork.Fork;
 
 public class Solution2 extends Philosopher {
 
     private final Semaphore lock;
 
-    public Solution2(int id, Object leftFork, Object rightFork, Semaphore lock) {
+    public Solution2(int id, Fork leftFork, Fork rightFork, Semaphore lock) {
         super(0, leftFork, rightFork);
         this.lock = lock;
     }
@@ -34,7 +36,5 @@ public class Solution2 extends Philosopher {
                 lock.release();
             }
         }
-
     }
-
 }

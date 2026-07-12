@@ -1,10 +1,12 @@
-package com.MultithreadingQuestions.DiningPhilosophersProblem.Solution;
+package com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions;
+
+import com.MultithreadingQuestions.DiningPhilosophersProblem.Solutions.Fork.Fork;
 
 public class Solution1 extends Philosopher {
 
     private final boolean isLastPhilosopher ; 
 
-    public Solution1(   int id, Object leftFork, Object rightFork , boolean isLastPhilosopher) {
+    public Solution1(   int id, Fork leftFork, Fork rightFork , boolean isLastPhilosopher) {
         super(id, leftFork, rightFork);
         this.isLastPhilosopher = isLastPhilosopher;
     }
