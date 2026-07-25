@@ -45,7 +45,11 @@ public class B_CallableNFuture {
         }
         executorService.shutdown();
 
-        // https://www.geeksforgeeks.org/java/completablefuture-in-java/
+        
+        /* Additional notes - 
+        https://www.geeksforgeeks.org/java/completablefuture-in-java/
+        https://www.geeksforgeeks.org/java/difference-between-countdownlatch-and-cyclicbarrier-in-java/ 
+        */
 
     }
 

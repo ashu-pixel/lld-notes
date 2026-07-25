@@ -5,11 +5,17 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /*
 Note - 
-one of the characteristics of ReentrantLock, that differentiates it from Semaphore, 
-is that after a lock is aquired on ReentrantLock, it can only be released by the thread that holds the lock. 
-In case of Semaphore, a permit can be released from any thread. */
+Characteristics of ReentrantLock, that differentiates it from Semaphore, 
 
+After a lock is aquired on ReentrantLock, it can only be released by the thread that holds the lock. 
+And same thread can aquire the lock again giving re-entry capability 
+Only when count(thread aquiring lock) = count(same thread releasing locks) lock is unlocked
+
+In case of Semaphore, a permit can be released from any thread. 
+Does not provide re-entry capability 
+ */
 class PingPong {
+
     private int n;
     private ReentrantLock lock = new ReentrantLock();
     private final Condition pingCondition = lock.newCondition();

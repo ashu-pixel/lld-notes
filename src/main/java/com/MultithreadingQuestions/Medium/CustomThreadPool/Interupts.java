@@ -8,8 +8,7 @@ Meaning it just asks the thread does not force the thread to stop
 
 Interrupt exception is only thrown in case when thread is waiting in sleep, wait, join, blockingQ.take 
 But the flag is set its your job to handle
-*/
-
+ */
 class MyThread extends Thread {
 
     @Override
@@ -41,6 +40,7 @@ class MyThread extends Thread {
 // InterruptedException and the thread will be interrupted
 // Note : There is not way to interrupt a thread when its waiting for synchronized block
 class MyThread2 {
+
     private final ReentrantLock lock = new ReentrantLock();
 
     public void doWork() {
@@ -79,20 +79,22 @@ public class Interupts {
         Thread t2 = new Thread(worker::doWork, "Thread-2");
         t1.start(); // Thread-1 acquires the lock and goes to sleep
         t2.start(); // Thread-2 tries to acquire the lock and waits
-        t2.interrupt(); // Interrupt Thread-2 while it's waiting for the lock. It won't throw
-                        // InterruptedException immediately but will set the interrupt flag to true.
-                        // Once Thread-1 releases the lock and Thread-2 acquires it, it will check the
-                        // interrupt flag and throw InterruptedException during sleep.
-        
+        t2.interrupt(); 
+        // Interrupt Thread-2 while it's waiting for the lock. It won't throw
+        // InterruptedException immediately but will set the interrupt flag to true.
+        // Once Thread-1 releases the lock and Thread-2 acquires it, it will check the
+        // interrupt flag and throw InterruptedException during sleep.
+
     }
 }
 
- 
-// | Case                                | Can be interrupted immediately?  | Interrupt Flag Set? | Flag Cleared Automatically? | Why? |
-// |-------------------------------------|----------------------------------|---------------------|-----------------------------|------|
-// | Thread.sleep()                      | Yes                              | Yes                 | Yes                         | sleep() throws InterruptedException and clears the flag when the exception is thrown. |
-// | BlockingQueue.take()                | Yes                              | Yes                 | Yes                         | BlockingQueue methods are interruptible and throw InterruptedException, clearing the flag. |
-// | ReentrantLock.lockInterruptibly()   | Yes                              | Yes                 | Yes                         | Designed to respond to interrupts and throws InterruptedException. |
-// | ReentrantLock.lock()                | No                               | Yes                 | No                          | lock() ignores interrupts while waiting for the lock; flag remains set. |
-// | synchronized                        | No                               | Yes                 | No                          | JVM monitor lock acquisition cannot be interrupted; thread waits until lock is available. |
-// | Normal running thread (not blocked) | No (keeps running)               | Yes                 | No                          | interrupt() only sets the flag; the thread must check it manually. |
+/*
+| Case                                | Can be interrupted immediately?  | Interrupt Flag Set? | Flag Cleared Automatically? | Why? |
+|-------------------------------------|----------------------------------|---------------------|-----------------------------|------|
+| Thread.sleep()                      | Yes                              | Yes                 | Yes                         | sleep() throws InterruptedException and clears the flag when the exception is thrown. |
+| BlockingQueue.take()                | Yes                              | Yes                 | Yes                         | BlockingQueue methods are interruptible and throw InterruptedException, clearing the flag. |
+| ReentrantLock.lockInterruptibly()   | Yes                              | Yes                 | Yes                         | Designed to respond to interrupts and throws InterruptedException. |
+| ReentrantLock.lock()                | No                               | Yes                 | No                          | lock() ignores interrupts while waiting for the lock; flag remains set. |
+| synchronized                        | No                               | Yes                 | No                          | JVM monitor lock acquisition cannot be interrupted; thread waits until lock is available. |
+| Normal running thread (not blocked) | No (keeps running)               | Yes                 | No                          | interrupt() only sets the flag; the thread must check it manually. |
+*/
