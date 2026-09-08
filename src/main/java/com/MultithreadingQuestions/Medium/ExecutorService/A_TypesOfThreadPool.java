@@ -31,6 +31,8 @@ public class A_TypesOfThreadPool {
         // If some threads are idle for 60 seconds, they will be killed and removed
         // Good when you have short lived burst of task 
         // If used with long living task can increase memory usage 
+        // Internally uses SynchronousQueue which has no capacity, 
+        // Each put operation must wait for a take operation by another thread, and vice versa
         executorService = Executors.newCachedThreadPool();
         // ------------------------------------------------------------------------------
 

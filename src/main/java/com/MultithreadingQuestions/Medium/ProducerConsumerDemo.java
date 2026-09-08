@@ -134,6 +134,18 @@ public class ProducerConsumerDemo {
 
         // This is implementation of BlockingQueue.
         Buffer buffer = new Buffer(5);
+        /*
+        This is implementation of ArrayBlockingQueue as one lock is used for both producer and consumer. 
+        So, when producer is producing the item, consumer has to wait for producer to finish and vice versa.
+
+        Unlike in LinkedBlockingQueue where two locks are used for producer and consumer. 
+        So, when producer is producing the item, consumer can consume the item at the same time.
+        Thus, higher throughput 
+
+        For PriorityBlockingQueue, 
+        Never blocks on put 
+        take() blocks if queue is empty
+        */
 
         // Producer thread
         Thread producer = new Thread(() -> {
