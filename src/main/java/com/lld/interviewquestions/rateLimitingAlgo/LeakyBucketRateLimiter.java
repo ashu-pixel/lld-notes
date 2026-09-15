@@ -1,15 +1,17 @@
 package com.lld.interviewquestions.rateLimitingAlgo;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class LeakyBucketRateLimiter implements RateLimiter {
 
-    private final int capacity;                 // max queue size
     private final BlockingQueue<Long> queue;    // request queue
     private final ScheduledExecutorService scheduler;
 
     public LeakyBucketRateLimiter(int capacity, int leakRatePerSecond) {
-        this.capacity = capacity;
         this.queue = new ArrayBlockingQueue<>(capacity);
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
 
@@ -22,6 +24,7 @@ public class LeakyBucketRateLimiter implements RateLimiter {
     }
 
     /** Try to add request to bucket */
+    @Override
     public boolean allowRequest() {
         // offer is thread-safe
         return queue.offer(System.nanoTime());

@@ -17,6 +17,7 @@ public class SlidingWindowLogRateLimiter implements RateLimiter {
         this.windowSizeMillis = windowSizeMillis;
     }
 
+    @Override
     public boolean allowRequest() {
         long now = System.currentTimeMillis();
 

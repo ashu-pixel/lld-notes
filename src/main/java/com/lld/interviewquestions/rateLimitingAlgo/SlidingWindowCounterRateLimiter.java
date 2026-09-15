@@ -21,6 +21,7 @@ public class SlidingWindowCounterRateLimiter implements RateLimiter {
         this.previousCount = 0;
     }
 
+    @Override 
     public boolean allowRequest() {
         long now = System.currentTimeMillis();
 
@@ -41,7 +42,7 @@ public class SlidingWindowCounterRateLimiter implements RateLimiter {
                 elapsed = 0;
             }
 
-            // weight of previous window contribution
+            // weight of current window contribution
             double overlapRatio =
                     (double)(windowSizeMillis - elapsed) / windowSizeMillis;
 

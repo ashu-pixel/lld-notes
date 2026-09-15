@@ -19,6 +19,7 @@ public class FixedWindowCounterRateLimiter implements RateLimiter {
         this.requestCount = 0;
     }
 
+    @Override 
     public boolean allowRequest() {
         long now = System.currentTimeMillis();
 

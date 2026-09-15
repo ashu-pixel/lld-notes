@@ -1,7 +1,7 @@
 package com.lld.interviewquestions.rateLimitingAlgo;
 
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class TokenBucketRateLimiter implements RateLimiter {
 
@@ -24,6 +24,7 @@ public class TokenBucketRateLimiter implements RateLimiter {
     }
 
     /** Try to acquire 1 token. Returns immediately (non-blocking). */
+    @Override
     public boolean allowRequest() {
         return tryAcquire(1);
     }
